@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swastik Logistics | Bitumen Transport Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0047AB; /* Deep blue - professionalism */
+            --secondary: #FF7700; /* Orange - energy, construction */
+            --accent: #1a3a6c; /* Dark blue */
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+        
+        /* Preloader Styles */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--accent);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        
+        .truck-loader {
+            position: relative;
+            width: 200px;
+            height: 100px;
+        }
+        
+        .truck-body {
+            position: absolute;
+            width: 150px;
+            height: 60px;
+            background: var(--secondary);
+            border-radius: 10px;
+            left: 0;
+            top: 20px;
+        }
+        
+        .truck-cabin {
+            position: absolute;
+            width: 60px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 8px 8px 0 0;
+            right: 0;
+            top: 0;
+        }
+        
+        .truck-window {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: #a3d5ff;
+            border-radius: 4px;
+            right: 5px;
+            top: 5px;
+        }
+        
+        .wheels {
+            position: absolute;
+            display: flex;
+            bottom: 0;
+        }
+        
+        .wheel {
+            width: 25px;
+            height: 25px;
+            background: #333;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 10px;
+        }
+        
+        .wheel::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #555;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .wheel1 { left: 20px; }
+        .wheel2 { left: 100px; }
+        .wheel3 { left: 140px; }
+        
+        .road {
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            background: #666;
+            bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .road-line {
+            position: absolute;
+            width: 40px;
+            height: 4px;
+            background: #FFD700;
+            animation: roadMove 1.5s linear infinite;
+        }
+        
+        @keyframes roadMove {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(300px); }
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* Announcement bar */
+        .announcement-bar {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            padding: 8px 0;
+            font-weight: 500;
+        }
+        
+        /* Navigation */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        
+        .nav-link {
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 71, 171, 0.8), rgba(0, 71, 171, 0.9)), url('t-3.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 150px 0 120px;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            animation: fadeIn 1s ease 0.4s both;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e06600;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Section Styling */
+        .section-title {
+            position: relative;
+            margin-bottom: 50px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+        
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        /* About Section */
+        .about-content {
+            background-color: var(--light);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .about-content:hover {
+            transform: translateY(-10px);
+        }
+        
+        /* Gallery Section */
+        .gallery-section {
+            background: linear-gradient(135deg, var(--light) 0%, #e6f0ff 100%);
+        }
+        
+        .gallery-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            height: 300px;
+            margin-bottom: 30px;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-container:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-container:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        /* Team Section */
+        .team-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .team-img {
+            height: 200px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+        }
+        
+        .team-info {
+            padding: 20px;
+        }
+        
+        .team-info h5 {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        /* Services */
+        .service-card {
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 100%;
+            border-left: 4px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        /* Clients Section */
+        .clients {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+        }
+        
+        .client-logo {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 120px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .client-logo:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .client-logo img {
+            max-height: 70px;
+            max-width: 100%;
+            filter: grayscale(100%);
+            transition: filter 0.3s ease;
+        }
+        
+        .client-logo:hover img {
+            filter: grayscale(0%);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .contact-info {
+            background: var(--primary);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+            height: 100%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .contact-info h3 {
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .contact-item {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--accent);
+            color: white;
+            padding: 60px 0 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--secondary);
+        }
+        
+        .footer h5 {
+            color: var(--secondary);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+        
+        .footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer ul li a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .footer ul li a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .navbar-brand .logo-text {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="truck-loader">
+            <div class="truck-body"></div>
+            <div class="truck-cabin">
+                <div class="truck-window"></div>
+            </div>
+            <div class="wheels">
+                <div class="wheel wheel1"></div>
+                <div class="wheel wheel2"></div>
+                <div class="wheel wheel3"></div>
+            </div>
+            <div class="road">
+                <div class="road-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container">
+            <marquee behavior="scroll" direction="left">
+                <strong>Authorized Transport Service Provider of bulk bitumen for  BPCL, IOCL, HPCL, PWD of Maharashtra & Other States</strong> | Contact: Jaywant Mali (9403688023) | Yogesh Ugalmugale (9422344184) | Email: swastiklogistic786@gmail.com | Office: 102, Patel Chambers, Mohan Nagar, Near Z P Office, Nashik - 422001
+            </marquee>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="Swastik Logo.jpg" alt="Swastik Logistics Logo" class="logo-img">
+                <!-- <span class="logo-text">Swastik <span style="color: var(--secondary);">Logistics</span></span> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#clients">Clients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1 data-aos="fade-down">Professional Bitumen Transport Solutions</h1>
+            <p data-aos="fade-up" data-aos-delay="100">Authorized transport service for bulk bitumen and emulsion across India</p>
+            <a href="#contact" class="btn btn-primary btn-lg" data-aos="fade-up" data-aos-delay="200">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-down">About Swastik Logistics</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="about-content" data-aos="fade-up">
+                        <p class="lead">Swastik Logistics is a premier provider of specialized transportation services for bulk bitumen and emulsion across India. With years of industry experience, we ensure safe, reliable, and efficient delivery solutions for our clients.</p>
+                        
+                        <p>As authorized transport partners for leading petroleum companies including BPCL, IOCL, HPCL, and government departments like PWD Maharashtra, we maintain the highest standards of service quality and safety compliance.</p>
+                        
+                        <p>Our modern fleet of temperature-controlled tankers and experienced logistics team enables us to handle complex transportation requirements with precision and professionalism.</p>
+                        
+                        <div class="mt-4">
+                            <h5>Our Mission</h5>
+                            <p>To provide reliable, efficient, and safe bitumen transportation solutions while building lasting partnerships with our clients through exceptional service.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-down">Our Gallery</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="gallery-container">
+                        <img src="s-1.jpg" alt="Our Truck Fleet" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Indian Oil Meet</h5>
+                            <p>Customer Meet at Nandurbar</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-container">
+                        <img src="s-4.jpg" alt="Bitumen Transport" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Bitumen Transport</h5>
+                            <p>Specialized equipment for safe delivery</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-container">
+                        <img src="s-3.jpg" alt="Our Office" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Office Premises</h5>
+                            <p>Professional workspace</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="gallery-container">
+                        <img src="s-2.jpg" alt="Team at Work" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Team at Work</h5>
+                            <p>Dedicated professionals</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="gallery-container">
+                        <img src="t-1.jpg" alt="Road Construction" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Road Construction</h5>
+                            <p>Bitumen application</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-container">
+                        <img src="t-2.jpg" alt="Maintenance" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Vehicle Maintenance</h5>
+                            <p>Regular upkeep for safety</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-container">
+                        <img src="t-6.jpg" alt="Maintenance" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Vehicle Maintenance</h5>
+                            <p>Regular upkeep for safety</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-container">
+                        <img src="s-5.jpg" alt="Maintenance" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Vehicle Maintenance</h5>
+                            <p>Regular upkeep for safety</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="gallery-container">
+                        <img src="t-5.jpg" alt="Maintenance" class="gallery-img">
+                        <div class="gallery-overlay">
+                            <h5>Vehicle Maintenance</h5>
+                            <p>Regular upkeep for safety</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-down">Our Team</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="team-card">
+                        <div class="team-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="team-info">
+                            <h5>Jaywant Mali</h5>
+                            <p class="text-muted">Co-Founder & Director</p>
+                            <p><i class="fas fa-phone me-2"></i> 9403688023</p>
+                            <p>With over 15 years of experience in logistics and transportation, Jaywant leads our operations with expertise and dedication.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="team-card">
+                        <div class="team-img">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="team-info">
+                            <h5>Yogesh Ugalmugale</h5>
+                            <p class="text-muted">Co-Founder & Director</p>
+                            <p><i class="fas fa-phone me-2"></i> 9422344184</p>
+                            <p>Yogesh brings extensive knowledge in petroleum logistics and client relationship management to our organization.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-down">Our Services</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-truck-tank"></i>
+                        </div>
+                        <h4>Bulk Bitumen Transport</h4>
+                        <p>Specialized transportation of bulk bitumen in temperature-controlled tankers ensuring product quality and timely delivery.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-road"></i>
+                        </div>
+                        <h4>Emulsion Transport</h4>
+                        <p>Safe and efficient transportation of bitumen emulsion with specialized equipment to maintain product integrity.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <h4>Bitumen Road Spray</h4>
+                        <p>Professional application of bitumen for road construction and maintenance projects using specialized spray equipment.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="0">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h4>Supply Chain Solutions</h4>
+                        <p>Comprehensive logistics planning and execution for petroleum products with real-time tracking and monitoring.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-temperature-low"></i>
+                        </div>
+                        <h4>Temperature-controlled Logistics</h4>
+                        <p>Specialized transport solutions for temperature-sensitive materials with precise climate control systems.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h4>Construction Support</h4>
+                        <p>Comprehensive logistics support for large-scale construction projects including material delivery coordination.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-down" style="color: white;">Our Esteemed Clients</h2>
+            <div class="row">
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="client-logo">
+                        <img src="BPCL.jpg" alt="Bharat Petroleum Corporation Limited">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="client-logo">
+                        <img src="hpcl.jpg" alt="Indian Oil Corporation Limited">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="client-logo">
+                        <img src="indianoil.jpg" alt="Hindustan Petroleum Corporation Limited">
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="lead" style="color: white;">We also serve various state governments and private sector clients across India</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2 class="text-center section-title" data-aos="fade-down">Contact Us</h2>
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="0">
+                    <div class="contact-info">
+                        <h3>Get In Touch</h3>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h5>Office Address</h5>
+                                <p>102, Patel Chambers, Mohan Nagar,<br> Near Z P Office, Nashik - 422001</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <h5>Phone Numbers</h5>
+                                <p>Jaywant Mali: 9403688023<br>Yogesh Ugalmugale: 9422344184</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h5>Email</h5>
+                                <p>swastiklogistic786@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div>
+                                <h5>Working Hours</h5>
+                                <p>Monday - Saturday: 8:00 AM - 8:00 PM<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left" data-aos-delay="100">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h3 class="mb-4">Send us a Message</h3>
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Your Name</label>
+                                        <input type="text" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Your Phone</label>
+                                        <input type="tel" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Your Email</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Subject</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5>Swastik Logistics</h5>
+                    <p>Providing reliable and professional bitumen transport services since 2010. Authorized transport partner for leading petroleum companies and government departments.</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                    <h5>Quick Links</h5>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                    <h5>Our Services</h5>
+                    <ul>
+                        <li><a href="#">Bulk Bitumen Transport</a></li>
+                        <li><a href="#">Emulsion Transport</a></li>
+                        <li><a href="#">Bitumen Road Spray</a></li>
+                        <li><a href="#">Supply Chain Solutions</a></li>
+                        <li><a href="#">Temperature-controlled Logistics</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h5>Contact Info</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Nashik, Maharashtra</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> 9403688023 / 9422344184</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> swastiklogistic786@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Swastik Logistics. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Preloader
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').style.opacity = '0';
+                document.getElementById('preloader').style.visibility = 'hidden';
+            }, 1500);
+        });
+        
+        // Initialize AOS for scroll animations
+        AOS.init({
+            duration: 1000,
+            once: true,
+            easing: 'ease-in-out',
+            mirror: false
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add active class to nav links on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if(pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.padding = '10px 0';
+                navbar.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            } else {
+                navbar.style.padding = '15px 0';
+                navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>
